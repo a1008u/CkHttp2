@@ -1,0 +1,190 @@
+2019/04/06 22:12:22 Serving on https://0.0.0.0:8000
+2019/04/06 22:12:26 http: TLS handshake error from [::1]:52303: remote error: tls: unknown certificate
+2019/04/06 22:12:26 http2: server connection from [::1]:52304 on 0xc0000acb60
+
+// サーバーがクライアントからコネクション接続を受けました。
+// SETTINGS フレームで設定されている値は Go 言語側で設定されているサーバー側 の初期値
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote SETTINGS len=24, settings: MAX_FRAME_SIZE=1048576, MAX_CONCURRENT_STREAMS=250, MAX_HEADER_LIST_SIZE=1048896, INITIAL_WINDOW_SIZE=1048576
+
+// クライアントコネクションプリフェイスを行います。フロー制御、ヘッダ圧縮、同時接続ストリーム数などのパラメーターがクライアントから通知されています。
+2019/04/06 22:12:26 http2: server: client [::1]:52304 said hello
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote WINDOW_UPDATE len=4 (conn) incr=983041
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read SETTINGS len=18, settings: HEADER_TABLE_SIZE=65536, MAX_CONCURRENT_STREAMS=1000, INITIAL_WINDOW_SIZE=6291456
+
+// SETTINGフレームでさまざまな初期値が決まります。
+2019/04/06 22:12:26 http2: server read frame SETTINGS len=18, settings: HEADER_TABLE_SIZE=65536, MAX_CONCURRENT_STREAMS=1000, INITIAL_WINDOW_SIZE=6291456
+2019/04/06 22:12:26 http2: server processing setting [HEADER_TABLE_SIZE = 65536]
+2019/04/06 22:12:26 http2: server processing setting [MAX_CONCURRENT_STREAMS = 1000]
+2019/04/06 22:12:26 http2: server processing setting [INITIAL_WINDOW_SIZE = 6291456]
+
+// サーバーコネクションプリフェイスを行います。
+// １.サーバー側からストリームID=0で゙ACKを送り、2の地点でクライアント側からACKを送り返しています。
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote SETTINGS flags=ACK len=0
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read WINDOW_UPDATE len=4 (conn) incr=15663105
+2019/04/06 22:12:26 http2: server read frame WINDOW_UPDATE len=4 (conn) incr=15663105
+
+// 設定された条件下で、ストリームID=1でブラウザからサーバーにHEADERフレームが送信されます。
+// decoded hpack field header fieldの部分は圧縮されたHEADERフレームがデーコードされた結果です。
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read HEADERS flags=END_STREAM|END_HEADERS|PRIORITY stream=1 len=291
+2019/04/06 22:12:26 http2: decoded hpack field header field ":method" = "GET"
+2019/04/06 22:12:26 http2: decoded hpack field header field ":authority" = "localhost:8000"
+2019/04/06 22:12:26 http2: decoded hpack field header field ":scheme" = "https"
+2019/04/06 22:12:26 http2: decoded hpack field header field ":path" = "/"
+2019/04/06 22:12:26 http2: decoded hpack field header field "pragma" = "no-cache"
+2019/04/06 22:12:26 http2: decoded hpack field header field "cache-control" = "no-cache"
+2019/04/06 22:12:26 http2: decoded hpack field header field "upgrade-insecure-requests" = "1"
+2019/04/06 22:12:26 http2: decoded hpack field header field "user-agent" = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+2019/04/06 22:12:26 http2: decoded hpack field header field "accept" = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3"
+2019/04/06 22:12:26 http2: decoded hpack field header field "accept-encoding" = "gzip, deflate, br"
+2019/04/06 22:12:26 http2: decoded hpack field header field "accept-language" = "ja,en-US;q=0.9,en;q=0.8,und;q=0.7"
+2019/04/06 22:12:26 http2: server read frame HEADERS flags=END_STREAM|END_HEADERS|PRIORITY stream=1 len=291
+
+// ２.１の地点でサーバー側からストリームID=0で゙ACKを送り、クライアント側からACKを送り返しています。
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read SETTINGS flags=ACK len=0
+2019/04/06 22:12:26 http2: server read frame SETTINGS flags=ACK len=0
+
+
+// log（goの実装コードで設定しているlogの出力）
+2019/04/06 22:12:26 the start ---wg start---
+2019/04/06 22:12:26 15
+2019/04/06 22:12:26 12
+2019/04/06 22:12:26 Got connection: HTTP/2.0
+2019/04/06 22:12:26 f1e3c2e5f23a6ba0ab90f4ff
+2019/04/06 22:12:26 ck header: map[Accept:[text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3] Accept-Encoding:[gzip, deflate, br] Accept-Language:[ja,en-US;q=0.9,en;q=0.8,und;q=0.7] Cache-Control:[no-cache] Pragma:[no-cache] Upgrade-Insecure-Requests:[1] User-Agent:[Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36]]
+2019/04/06 22:12:26 ck request: &{GET / HTTP/2.0 2 0 map[Accept:[text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3] Accept-Encoding:[gzip, deflate, br] Accept-Language:[ja,en-US;q=0.9,en;q=0.8,und;q=0.7] Cache-Control:[no-cache] Pragma:[no-cache] Upgrade-Insecure-Requests:[1] User-Agent:[Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36]] 0xc00012c5d0 <nil> 0 [] false localhost:8000 map[] map[] <nil> map[] [::1]:52304 / 0xc0001be0b0 <nil> <nil> 0xc0001920c0}
+2019/04/06 22:12:26 the end ---wg end---
+2019/04/06 22:12:26 http2: server encoding header ":method" = "GET"
+2019/04/06 22:12:26 the start ---wg start---
+2019/04/06 22:12:26 15
+2019/04/06 22:12:26 http2: server encoding header ":scheme" = "https"
+2019/04/06 22:12:26 12
+2019/04/06 22:12:26 http2: server encoding header ":authority" = "localhost:8000"
+2019/04/06 22:12:26 f1e3c2e5f23a6ba0ab90f4ff
+2019/04/06 22:12:26 http2: server encoding header ":path" = "/static/app.js"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote PUSH_PROMISE flags=END_HEADERS stream=1 len=33
+2019/04/06 22:12:26 Got connection: HTTP/2.0
+2019/04/06 22:12:26 ck header: map[]
+2019/04/06 22:12:26 ck request: &{GET /static/app.js HTTP/2.0 2 0 map[] 0xc0000ab380 <nil> 0 [] false localhost:8000 map[] map[] <nil> map[] [::1]:52304 /static/app.js 0xc0001be0b0 <nil> <nil> 0xc0000e2740}
+2019/04/06 22:12:26 the end ---wg end---
+2019/04/06 22:12:26 Failed to push: http2: recursive push not allowed
+2019/04/06 22:12:26 Failed to push: http2: recursive push not allowed
+2019/04/06 22:12:26 the start ---wg start---
+2019/04/06 22:12:26 15
+2019/04/06 22:12:26 12
+2019/04/06 22:12:26 http2: server encoding header ":method" = "GET"
+2019/04/06 22:12:26 f1e3c2e5f23a6ba0ab90f4ff
+
+// 送られてきたHEADER内容をサーバー側で処理し、返却する内容を決めています。
+2019/04/06 22:12:26 http2: server encoding header ":scheme" = "https"
+2019/04/06 22:12:26 http2: server encoding header ":authority" = "localhost:8000"
+2019/04/06 22:12:26 http2: server encoding header ":path" = "/static/style.css"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote PUSH_PROMISE flags=END_HEADERS stream=1 len=21
+2019/04/06 22:12:26 http2: server encoding header ":status" = "200"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read PRIORITY stream=2 len=5
+2019/04/06 22:12:26 http2: server encoding header "content-type" = "text/html; charset=utf-8"
+2019/04/06 22:12:26 http2: server encoding header "content-length" = "209"
+2019/04/06 22:12:26 http2: server read frame PRIORITY stream=2 len=5
+2019/04/06 22:12:26 http2: server encoding header "date" = "Sat, 06 Apr 2019 13:12:26 GMT"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote HEADERS flags=END_HEADERS stream=2 len=49
+2019/04/06 22:12:26 http2: server encoding header ":status" = "200"
+2019/04/06 22:12:26 Got connection: HTTP/2.0
+2019/04/06 22:12:26 ck header: map[]
+2019/04/06 22:12:26 http2: server encoding header "content-type" = "text/html; charset=utf-8"
+2019/04/06 22:12:26 http2: server encoding header "content-length" = "209"
+2019/04/06 22:12:26 http2: server encoding header "date" = "Sat, 06 Apr 2019 13:12:26 GMT"
+2019/04/06 22:12:26 ck request: &{GET /static/style.css HTTP/2.0 2 0 map[] 0xc0002480c0 <nil> 0 [] false localhost:8000 map[] map[] <nil> map[] [::1]:52304 /static/style.css 0xc0001be0b0 <nil> <nil> 0xc00024e040}
+2019/04/06 22:12:26 the end ---wg end---
+2019/04/06 22:12:26 Failed to push: http2: recursive push not allowed
+2019/04/06 22:12:26 Failed to push: http2: recursive push not allowed
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote HEADERS flags=END_HEADERS stream=1 len=4
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote DATA flags=END_STREAM stream=1 len=209 data="<html>\n\t<head>\n\t<title>Hello World</title>\n\t<script src=\"/static/app.js\"></script>\n\t<link rel=\"stylesheet\" href=\"/static/style.css\">\n\t</head>\n\t<body>\n\t\t<h1 class=\"title\">Hello, gopher!</h1>\n\t</body>\n\t</html>\n\t"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote DATA flags=END_STREAM stream=2 len=209 data="<html>\n\t<head>\n\t<title>Hello World</title>\n\t<script src=\"/static/app.js\"></script>\n\t<link rel=\"stylesheet\" href=\"/static/style.css\">\n\t</head>\n\t<body>\n\t\t<h1 class=\"title\">Hello, gopher!</h1>\n\t</body>\n\t</html>\n\t"
+2019/04/06 22:12:26 http2: server encoding header ":status" = "200"
+2019/04/06 22:12:26 http2: server encoding header "content-type" = "text/html; charset=utf-8"
+2019/04/06 22:12:26 http2: server encoding header "content-length" = "209"
+2019/04/06 22:12:26 http2: server encoding header "date" = "Sat, 06 Apr 2019 13:12:26 GMT"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote HEADERS flags=END_HEADERS stream=4 len=4
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote DATA flags=END_STREAM stream=4 len=209 data="<html>\n\t<head>\n\t<title>Hello World</title>\n\t<script src=\"/static/app.js\"></script>\n\t<link rel=\"stylesheet\" href=\"/static/style.css\">\n\t</head>\n\t<body>\n\t\t<h1 class=\"title\">Hello, gopher!</h1>\n\t</body>\n\t</html>\n\t"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read PRIORITY stream=4 len=5
+2019/04/06 22:12:26 http2: server read frame PRIORITY stream=4 len=5
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read HEADERS flags=END_STREAM|END_HEADERS|PRIORITY stream=3 len=79
+2019/04/06 22:12:26 http2: decoded hpack field header field ":method" = "GET"
+2019/04/06 22:12:26 http2: decoded hpack field header field ":authority" = "localhost:8000"
+2019/04/06 22:12:26 http2: decoded hpack field header field ":scheme" = "https"
+2019/04/06 22:12:26 http2: decoded hpack field header field ":path" = "/favicon.ico"
+2019/04/06 22:12:26 http2: decoded hpack field header field "pragma" = "no-cache"
+2019/04/06 22:12:26 http2: decoded hpack field header field "cache-control" = "no-cache"
+2019/04/06 22:12:26 http2: decoded hpack field header field "user-agent" = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+2019/04/06 22:12:26 http2: decoded hpack field header field "accept" = "image/webp,image/apng,image/*,*/*;q=0.8"
+2019/04/06 22:12:26 http2: decoded hpack field header field "referer" = "https://localhost:8000/"
+2019/04/06 22:12:26 http2: decoded hpack field header field "accept-encoding" = "gzip, deflate, br"
+2019/04/06 22:12:26 http2: decoded hpack field header field "accept-language" = "ja,en-US;q=0.9,en;q=0.8,und;q=0.7"
+2019/04/06 22:12:26 http2: server read frame HEADERS flags=END_STREAM|END_HEADERS|PRIORITY stream=3 len=79
+
+
+2019/04/06 22:12:26 the start ---wg start---
+2019/04/06 22:12:26 15
+2019/04/06 22:12:26 Got connection: HTTP/2.0
+2019/04/06 22:12:26 12
+2019/04/06 22:12:26 ck header: map[Accept:[image/webp,image/apng,image/*,*/*;q=0.8] Accept-Encoding:[gzip, deflate, br] Accept-Language:[ja,en-US;q=0.9,en;q=0.8,und;q=0.7] Cache-Control:[no-cache] Pragma:[no-cache] Referer:[https://localhost:8000/] User-Agent:[Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36]]
+2019/04/06 22:12:26 f1e3c2e5f23a6ba0ab90f4ff
+2019/04/06 22:12:26 ck request: &{GET /favicon.ico HTTP/2.0 2 0 map[Accept:[image/webp,image/apng,image/*,*/*;q=0.8] Accept-Encoding:[gzip, deflate, br] Accept-Language:[ja,en-US;q=0.9,en;q=0.8,und;q=0.7] Cache-Control:[no-cache] Pragma:[no-cache] Referer:[https://localhost:8000/] User-Agent:[Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36]] 0xc00012cb10 <nil> 0 [] false localhost:8000 map[] map[] <nil> map[] [::1]:52304 /favicon.ico 0xc0001be0b0 <nil> <nil> 0xc000192300}
+2019/04/06 22:12:26 the end ---wg end---
+2019/04/06 22:12:26 http2: server encoding header ":method" = "GET"
+2019/04/06 22:12:26 the start ---wg start---
+2019/04/06 22:12:26 15
+2019/04/06 22:12:26 http2: server encoding header ":scheme" = "https"
+2019/04/06 22:12:26 http2: server encoding header ":authority" = "localhost:8000"
+2019/04/06 22:12:26 12
+2019/04/06 22:12:26 http2: server encoding header ":path" = "/static/app.js"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote PUSH_PROMISE flags=END_HEADERS stream=3 len=8
+2019/04/06 22:12:26 Got connection: HTTP/2.0
+2019/04/06 22:12:26 f1e3c2e5f23a6ba0ab90f4ff
+2019/04/06 22:12:26 http2: server encoding header ":method" = "GET"
+2019/04/06 22:12:26 ck header: map[]
+2019/04/06 22:12:26 the start ---wg start---
+2019/04/06 22:12:26 15
+2019/04/06 22:12:26 Got connection: HTTP/2.0
+2019/04/06 22:12:26 ck request: &{GET /static/app.js HTTP/2.0 2 0 map[] 0xc00008e870 <nil> 0 [] false localhost:8000 map[] map[] <nil> map[] [::1]:52304 /static/app.js 0xc0001be0b0 <nil> <nil> 0xc000026600}
+2019/04/06 22:12:26 ck header: map[]
+2019/04/06 22:12:26 the end ---wg end---
+2019/04/06 22:12:26 Failed to push: http2: recursive push not allowed
+2019/04/06 22:12:26 Failed to push: http2: recursive push not allowed
+2019/04/06 22:12:26 ck request: &{GET /static/style.css HTTP/2.0 2 0 map[] 0xc00008e8d0 <nil> 0 [] false localhost:8000 map[] map[] <nil> map[] [::1]:52304 /static/style.css 0xc0001be0b0 <nil> <nil> 0xc000026680}
+2019/04/06 22:12:26 12
+2019/04/06 22:12:26 f1e3c2e5f23a6ba0ab90f4ff
+2019/04/06 22:12:26 the end ---wg end---
+
+
+2019/04/06 22:12:26 http2: server encoding header ":scheme" = "https"
+2019/04/06 22:12:26 http2: server encoding header ":authority" = "localhost:8000"
+2019/04/06 22:12:26 http2: server encoding header ":path" = "/static/style.css"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote PUSH_PROMISE flags=END_HEADERS stream=3 len=8
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read PRIORITY stream=6 len=5
+2019/04/06 22:12:26 Failed to push: http2: recursive push not allowed
+2019/04/06 22:12:26 Failed to push: http2: recursive push not allowed
+2019/04/06 22:12:26 http2: server encoding header ":status" = "200"
+2019/04/06 22:12:26 http2: server read frame PRIORITY stream=6 len=5
+2019/04/06 22:12:26 http2: server encoding header "content-type" = "text/html; charset=utf-8"
+2019/04/06 22:12:26 http2: server encoding header "content-length" = "209"
+2019/04/06 22:12:26 http2: server encoding header "date" = "Sat, 06 Apr 2019 13:12:26 GMT"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote HEADERS flags=END_HEADERS stream=6 len=4
+2019/04/06 22:12:26 http2: server encoding header ":status" = "200"
+2019/04/06 22:12:26 http2: server encoding header "content-type" = "text/html; charset=utf-8"
+2019/04/06 22:12:26 http2: server encoding header "content-length" = "209"
+2019/04/06 22:12:26 http2: server encoding header "date" = "Sat, 06 Apr 2019 13:12:26 GMT"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote HEADERS flags=END_HEADERS stream=3 len=4
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote DATA flags=END_STREAM stream=3 len=209 data="<html>\n\t<head>\n\t<title>Hello World</title>\n\t<script src=\"/static/app.js\"></script>\n\t<link rel=\"stylesheet\" href=\"/static/style.css\">\n\t</head>\n\t<body>\n\t\t<h1 class=\"title\">Hello, gopher!</h1>\n\t</body>\n\t</html>\n\t"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote DATA flags=END_STREAM stream=6 len=209 data="<html>\n\t<head>\n\t<title>Hello World</title>\n\t<script src=\"/static/app.js\"></script>\n\t<link rel=\"stylesheet\" href=\"/static/style.css\">\n\t</head>\n\t<body>\n\t\t<h1 class=\"title\">Hello, gopher!</h1>\n\t</body>\n\t</html>\n\t"
+2019/04/06 22:12:26 http2: server encoding header ":status" = "200"
+2019/04/06 22:12:26 http2: server encoding header "content-type" = "text/html; charset=utf-8"
+2019/04/06 22:12:26 http2: server encoding header "content-length" = "209"
+2019/04/06 22:12:26 http2: server encoding header "date" = "Sat, 06 Apr 2019 13:12:26 GMT"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote HEADERS flags=END_HEADERS stream=8 len=4
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: wrote DATA flags=END_STREAM stream=8 len=209 data="<html>\n\t<head>\n\t<title>Hello World</title>\n\t<script src=\"/static/app.js\"></script>\n\t<link rel=\"stylesheet\" href=\"/static/style.css\">\n\t</head>\n\t<body>\n\t\t<h1 class=\"title\">Hello, gopher!</h1>\n\t</body>\n\t</html>\n\t"
+2019/04/06 22:12:26 http2: Framer 0xc0001c20e0: read PRIORITY stream=8 len=5
+2019/04/06 22:12:26 http2: server read frame PRIORITY stream=8 len=5
+2019/04/06 22:17:26 http2: Framer 0xc0001c20e0: read RST_STREAM stream=6 len=4 ErrCode=REFUSED_STREAM
+2019/04/06 22:17:26 http2: server read frame RST_STREAM stream=6 len=4 ErrCode=REFUSED_STREAM
+2019/04/06 22:17:26 http2: Framer 0xc0001c20e0: read RST_STREAM stream=8 len=4 ErrCode=REFUSED_STREAM
+2019/04/06 22:17:26 http2: server read frame RST_STREAM stream=8 len=4 ErrCode=REFUSED_STREAM
